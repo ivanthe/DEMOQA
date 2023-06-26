@@ -1,6 +1,10 @@
+import random
 import time
+
+from selenium.webdriver.common.by import By
+
 from generator.generator import generator_person
-from locators.elements_page_locators import TextBoxElementsLocator
+from locators.elements_page_locators import TextBoxElementsLocator, CheckBoxLocators
 from pages.base_page import BasePage
 
 class TextBoxPage(BasePage):
@@ -28,3 +32,50 @@ class TextBoxPage(BasePage):
         current_adress = self.element_is_present(self.locator.CREATED_CURRENT_ADDRESS).text.split(':')[1]
         permanent_adress = self.element_is_present(self.locator.CREATED_PERMANENT_ADDRESS).text.split(':')[1]
         return full_name, email, current_adress, permanent_adress
+
+class CheckBoxPage(BasePage):
+    locator = CheckBoxLocators
+    def open_full_list(self):
+        self.element_is_visible(self.locator.EXPAND_ALL_BUTTON).click()
+
+    def click_random_checkbox(self):
+        item_list = self.element_are_visible(self.locator.ITEM_LIST)
+
+        """count = 21
+        while count != 0:
+            item = item_list[random.randint(1, 15)]
+            if count > 0:
+                self.go_to_element(item_list[random.randint(1, 15)])
+                item.click()
+                count -=1
+                #print(item.text)
+            else:
+                break"""
+
+        random_value = random.randint(1, len(item_list))
+        for i in range(0, random_value):
+            item = item_list[random.randint(1, 15)]
+            self.go_to_element(item)
+            item.click()
+
+    def get_list_with_clicked_item(self):
+        checked_item = self.element_are_present(self.locator.CHECKED_ITEM)
+        data = []
+        for box in checked_item:
+            title_item = box.find_element(By.XPATH, self.locator.TITLE_ITEM)
+            data.append(title_item.text.lower().replace(" ", "").split('.')[0])
+        return data
+
+    def get_list_with_results(self):
+        result_item = self.element_are_present(self.locator.RESULT_ITEM)
+        data = []
+        for box in result_item:
+            data.append(box.text.lower())
+        return data
+
+    def compare_results(self, clicked_items, result_item):
+        assert clicked_items == result_item, "Результат не совпадает"
+
+
+
+
