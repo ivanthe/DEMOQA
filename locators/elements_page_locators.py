@@ -21,3 +21,12 @@ class CheckBoxLocators:
     ITEM_LIST = (By.CSS_SELECTOR, "span[class='rct-title']")
     RESULT_ITEM = (By.CSS_SELECTOR, ".text-success")
     TITLE_ITEM = ".//ancestor::span[@class='rct-text']"
+
+class RadioButtonLocators:
+    YES_BUTTON = (By.XPATH, '//input[contains(@id, "yesRadio")]/following-sibling::label')
+    IMPRESSIVE_BUTTON = (By.XPATH, '//input[contains(@id, "impressiveRadio")]/following-sibling::label')
+    NO_BUTTON = (By.XPATH, '//input[contains(@id, "noRadio")]/following-sibling::label')
+    ACTUAL_RESULT = (By.CSS_SELECTOR, "span[class='text-success']")
+    RADIO_BUTTONS_LIST = (By.CSS_SELECTOR, 'input[type="radio"]')
+
+

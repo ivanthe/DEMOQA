@@ -4,8 +4,9 @@ import time
 from selenium.webdriver.common.by import By
 
 from generator.generator import generator_person
-from locators.elements_page_locators import TextBoxElementsLocator, CheckBoxLocators
+from locators.elements_page_locators import TextBoxElementsLocator, CheckBoxLocators, RadioButtonLocators
 from pages.base_page import BasePage
+from selenium.common.exceptions import ElementClickInterceptedException
 
 class TextBoxPage(BasePage):
     locator = TextBoxElementsLocator()
@@ -41,6 +42,10 @@ class CheckBoxPage(BasePage):
     def click_random_checkbox(self):
         item_list = self.element_are_visible(self.locator.ITEM_LIST)
 
+        """   ====
+        Below is one of the ways to click random list items implemented using a WHILE-loop
+        ===   """
+
         """count = 21
         while count != 0:
             item = item_list[random.randint(1, 15)]
@@ -75,6 +80,45 @@ class CheckBoxPage(BasePage):
 
     def compare_results(self, clicked_items, result_item):
         assert clicked_items == result_item, "Результат не совпадает"
+
+class RadioButtonPage(BasePage):
+    locators = RadioButtonLocators
+
+    def get_radiobuttons_quantity(self):
+        radioButtons_list = self.element_are_present(self.locators.RADIO_BUTTONS_LIST)
+        return len(radioButtons_list)
+
+    def click_radio_buttons(self, choise):
+        choises = {"yes": self.locators.YES_BUTTON,
+                  "impessive": self.locators.IMPRESSIVE_BUTTON,
+                  "no": self.locators.NO_BUTTON
+                  }
+        self.element_is_clickable(choises[choise]).click()
+
+    def get_results(self):
+        text = self.element_is_present(self.locators.ACTUAL_RESULT).text
+        print(text)
+        return text
+
+        """self.element_is_clickable(self.locators.NO_BUTTON).click()
+        time.sleep(2)"""
+        """radio = radioButtons_list[1]
+        self.go_to_element(radio)
+        radio.click()
+        time.sleep(2)
+        radio = radioButtons_list[2]
+        self.go_to_element(radio)
+        radio.click()"""
+        """for i in range(0, len(radioButtons_list)-1):
+            try:
+                radioButtons_list[i+1].click()
+                time.sleep(2)
+            except ElementClickInterceptedException:
+                return False
+            return True"""
+
+    def get_actual_result(self):
+        return
 
 
 

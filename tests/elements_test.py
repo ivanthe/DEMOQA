@@ -1,6 +1,6 @@
 import time
 
-from pages.elements_page import TextBoxPage, CheckBoxPage
+from pages.elements_page import TextBoxPage, CheckBoxPage, RadioButtonPage
 
 url = "https://demoqa.com/text-box"
 class TestElements:
@@ -30,4 +30,17 @@ class TestElements:
             result_item = checkbox_page.get_list_with_results()
             checkbox_page.compare_results(clicked_items, result_item)
             time.sleep(1)
+
+    class TestRafioButtom:
+        url = 'https://demoqa.com/radio-button'
+
+        def test_click_rafiobutton(self, driver):
+            radiobutton_page = RadioButtonPage(driver, self.url)
+            radiobutton_page.open()
+            radiobutton_page.click_radio_buttons('yes')
+            assert radiobutton_page.get_results() == "Yes", "РЕЗУЛЬТАТ С КНОПОКЙ YES НЕКОРРЕКТНЫЙ!!!!"
+            radiobutton_page.click_radio_buttons('impessive')
+            assert radiobutton_page.get_results() == "Impressive", "РЕЗУЛЬТАТ С КНОПОКЙ IMPRESSIVE НЕКОРРЕКТНЫЙ!!!!"
+            radiobutton_page.click_radio_buttons('no')
+            assert radiobutton_page.get_results() == "No", "РЕЗУЛЬТАТ С КНОПОКЙ NO НЕКОРРЕКТНЫЙ!!!!"
 
