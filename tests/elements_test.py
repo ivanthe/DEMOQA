@@ -34,7 +34,7 @@ class TestElements:
     class TestRafioButtom:
         url = 'https://demoqa.com/radio-button'
 
-        def test_click_rafiobutton(self, driver):
+        def test_click_radiobutton(self, driver):
             radiobutton_page = RadioButtonPage(driver, self.url)
             radiobutton_page.open()
             radiobutton_page.click_radio_buttons('yes')

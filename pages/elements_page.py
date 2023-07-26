@@ -97,28 +97,8 @@ class RadioButtonPage(BasePage):
 
     def get_results(self):
         text = self.element_is_present(self.locators.ACTUAL_RESULT).text
-        print(text)
         return text
 
-        """self.element_is_clickable(self.locators.NO_BUTTON).click()
-        time.sleep(2)"""
-        """radio = radioButtons_list[1]
-        self.go_to_element(radio)
-        radio.click()
-        time.sleep(2)
-        radio = radioButtons_list[2]
-        self.go_to_element(radio)
-        radio.click()"""
-        """for i in range(0, len(radioButtons_list)-1):
-            try:
-                radioButtons_list[i+1].click()
-                time.sleep(2)
-            except ElementClickInterceptedException:
-                return False
-            return True"""
-
-    def get_actual_result(self):
-        return
 
 
 
