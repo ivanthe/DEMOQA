@@ -3,10 +3,11 @@ import time
 
 from selenium.webdriver.common.by import By
 
-from generator.generator import generator_person
-from locators.elements_page_locators import TextBoxElementsLocator, CheckBoxLocators, RadioButtonLocators
+from generator.generator import generator_person, webtable_generator_person
+from locators.elements_page_locators import TextBoxElementsLocator, CheckBoxLocators, RadioButtonLocators, \
+    WebTabelLocators
 from pages.base_page import BasePage
-from selenium.common.exceptions import ElementClickInterceptedException
+from selenium.common.exceptions import TimeoutException
 
 class TextBoxPage(BasePage):
     locator = TextBoxElementsLocator()
@@ -99,7 +100,34 @@ class RadioButtonPage(BasePage):
         text = self.element_is_present(self.locators.ACTUAL_RESULT).text
         return text
 
+class WebTabelPage(BasePage):
+    locators = WebTabelLocators
 
+    def check_reg_form_is_appeard(self):
+        try:
+            self.element_is_present(self.locators.REGISTRATION_FORM)
+        except TimeoutException:
+            return False
+        return True
 
+    def click_add_button(self):
+        self.element_is_present(self.locators.ADD_BUTTON).click()
+        assert self.check_reg_form_is_appeard() == True, 'Форма регистрации не появилась'
 
+    def fill_registration_form(self):
+        person_info = next(webtable_generator_person())
+        first_name = person_info.first_name
+        last_name = person_info.last_name
+        email = person_info.email
+        age = person_info.age
+        salary = person_info.salary
+        department = person_info.department
+        self.element_is_present(self.locators.FIRST_NAME_REG_FORM).send_keys(first_name)
+        self.element_is_present(self.locators.LAST_NAME_RAG_FORM).send_keys(last_name)
+        self.element_is_present(self.locators.EMAIL_REG_FORM).send_keys(email)
+        self.element_is_present(self.locators.AGE_REG_FORM).send_keys(age)
+        self.element_is_present(self.locators.SALARY_REG_FORM).send_keys(salary)
+        self.element_is_present(self.locators.DEPARTMEMT_REG_FORM).send_keys(department)
+        time.sleep(5)
+        self.element_is_present(self.locators.SUBMIT_BUTTON_REG_FORM).click()
 

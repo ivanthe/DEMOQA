@@ -1,6 +1,6 @@
 import time
 
-from pages.elements_page import TextBoxPage, CheckBoxPage, RadioButtonPage
+from pages.elements_page import TextBoxPage, CheckBoxPage, RadioButtonPage, WebTabelPage
 
 url = "https://demoqa.com/text-box"
 class TestElements:
@@ -43,4 +43,16 @@ class TestElements:
             assert radiobutton_page.get_results() == "Impressive", "РЕЗУЛЬТАТ С КНОПОКЙ IMPRESSIVE НЕКОРРЕКТНЫЙ!!!!"
             radiobutton_page.click_radio_buttons('no')
             assert radiobutton_page.get_results() == "No", "РЕЗУЛЬТАТ С КНОПОКЙ NO НЕКОРРЕКТНЫЙ!!!!"
+
+
+    class TestWebTables:
+        url = 'https://demoqa.com/webtables'
+
+        def test_webtable_add_person(self, driver):
+            webtabel_page = WebTabelPage(driver, self.url)
+            webtabel_page.open()
+            webtabel_page.click_add_button()
+            webtabel_page.fill_registration_form()
+
+
 

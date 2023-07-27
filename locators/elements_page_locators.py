@@ -32,5 +32,21 @@ class RadioButtonLocators:
     IMPRESSIVE_BUTTON = (By.CSS_SELECTOR, 'label[class^=custom-control-label][for=impressiveRadio]')
     NO_BUTTON = (By.CSS_SELECTOR, 'label[class^=custom-control-label][for=noRadio]')
 
+class WebTabelLocators:
+    ADD_BUTTON = (By.CSS_SELECTOR, '#addNewRecordButton')
+
+    REGISTRATION_FORM = (By.CSS_SELECTOR, 'div[class=modal-content]')
+    FIRST_NAME_REG_FORM = (By.CSS_SELECTOR, 'input[id=firstName]')
+    LAST_NAME_RAG_FORM = (By.CSS_SELECTOR, 'input[id=lastName]')
+    EMAIL_REG_FORM = (By.CSS_SELECTOR, 'input[id=userEmail]')
+    AGE_REG_FORM = (By.CSS_SELECTOR, 'input[id=age]')
+    SALARY_REG_FORM = (By.CSS_SELECTOR, 'input[id=salary]')
+    DEPARTMEMT_REG_FORM = (By.CSS_SELECTOR, 'input[id=department]')
+    SUBMIT_BUTTON_REG_FORM = (By.CSS_SELECTOR, 'button[id=submit]')
+
+    SEARCH_BUTTON = (By.CSS_SELECTOR, 'div[class=input-group-append]')
+
+
+
 
 
