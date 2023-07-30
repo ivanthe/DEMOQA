@@ -5,9 +5,10 @@ from selenium.webdriver.common.by import By
 
 from generator.generator import generator_person, webtable_generator_person
 from locators.elements_page_locators import TextBoxElementsLocator, CheckBoxLocators, RadioButtonLocators, \
-    WebTabelLocators
+    WebTableLocators
 from pages.base_page import BasePage
 from selenium.common.exceptions import TimeoutException
+
 
 class TextBoxPage(BasePage):
     locator = TextBoxElementsLocator()
@@ -35,8 +36,10 @@ class TextBoxPage(BasePage):
         permanent_adress = self.element_is_present(self.locator.CREATED_PERMANENT_ADDRESS).text.split(':')[1]
         return full_name, email, current_adress, permanent_adress
 
+
 class CheckBoxPage(BasePage):
     locator = CheckBoxLocators
+
     def open_full_list(self):
         self.element_is_visible(self.locator.EXPAND_ALL_BUTTON).click()
 
@@ -82,6 +85,7 @@ class CheckBoxPage(BasePage):
     def compare_results(self, clicked_items, result_item):
         assert clicked_items == result_item, "Результат не совпадает"
 
+
 class RadioButtonPage(BasePage):
     locators = RadioButtonLocators
 
@@ -91,17 +95,18 @@ class RadioButtonPage(BasePage):
 
     def click_radio_buttons(self, choise):
         choises = {"yes": self.locators.YES_BUTTON,
-                  "impessive": self.locators.IMPRESSIVE_BUTTON,
-                  "no": self.locators.NO_BUTTON
-                  }
+                   "impessive": self.locators.IMPRESSIVE_BUTTON,
+                   "no": self.locators.NO_BUTTON
+                   }
         self.element_is_clickable(choises[choise]).click()
 
     def get_results(self):
         text = self.element_is_present(self.locators.ACTUAL_RESULT).text
         return text
 
-class WebTabelPage(BasePage):
-    locators = WebTabelLocators
+
+class WebTablePage(BasePage):
+    locators = WebTableLocators
 
     def check_reg_form_is_appeard(self):
         try:
@@ -132,7 +137,7 @@ class WebTabelPage(BasePage):
         self.element_is_present(self.locators.SUBMIT_BUTTON_REG_FORM).click()
         return new_added_person
 
-    def get_tabel_data(self):
+    def get_table_data(self):
         people_data = self.element_are_present(self.locators.PEOPLE_DATA)
         data = []
         for index in people_data:
@@ -142,4 +147,11 @@ class WebTabelPage(BasePage):
     def check_new_person_in_table(self, new_person, full_list):
         assert new_person in full_list, "ДАННЫЕ НОВОГО СОТРУДНИКА НЕ ВНЕСЕНЫ В ТАБЛИЦУ ИЛИ ВНЕСЕНЫ НЕ КОРРЕКТНО!!!"
 
+    def search_some_person(self, key_word):
+        self.element_is_present(self.locators.SEARCH_INPUT).send_keys(key_word)
+
+    def check_search_person(self):
+        delete_button = self.element_is_present(self.locators.DELETE_BUTTON)
+        row = delete_button.find_element(By.XPATH, self.locators.ROW_PARENT)
+        return row.text.splitlines()
 

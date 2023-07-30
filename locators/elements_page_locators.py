@@ -32,7 +32,7 @@ class RadioButtonLocators:
     IMPRESSIVE_BUTTON = (By.CSS_SELECTOR, 'label[class^=custom-control-label][for=impressiveRadio]')
     NO_BUTTON = (By.CSS_SELECTOR, 'label[class^=custom-control-label][for=noRadio]')
 
-class WebTabelLocators:
+class WebTableLocators:
     ADD_BUTTON = (By.CSS_SELECTOR, '#addNewRecordButton')
 
     REGISTRATION_FORM = (By.CSS_SELECTOR, 'div[class=modal-content]')
@@ -45,8 +45,13 @@ class WebTabelLocators:
     SUBMIT_BUTTON_REG_FORM = (By.CSS_SELECTOR, 'button[id=submit]')
 
     SEARCH_BUTTON = (By.CSS_SELECTOR, 'div[class=input-group-append]')
+    SEARCH_INPUT = (By.CSS_SELECTOR, 'input[id=searchBox]')
+    DELETE_BUTTON = (By.CSS_SELECTOR, 'span[title=Delete]')
+    ROW_PARENT = ".//ancestor::div[@class='rt-tr-group']"
 
-    PEOPLE_DATA = (By.CSS_SELECTOR, "div[class='rt-tr-group']")
+    PEOPLE_DATA = "div[class='rt-tr-group']"
+
+
 
 
 

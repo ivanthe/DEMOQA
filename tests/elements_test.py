@@ -1,6 +1,7 @@
+import random
 import time
 
-from pages.elements_page import TextBoxPage, CheckBoxPage, RadioButtonPage, WebTabelPage
+from pages.elements_page import TextBoxPage, CheckBoxPage, RadioButtonPage, WebTablePage
 
 url = "https://demoqa.com/text-box"
 class TestElements:
@@ -49,12 +50,28 @@ class TestElements:
         url = 'https://demoqa.com/webtables'
 
         def test_webtable_add_person(self, driver):
-            webtabel_page = WebTabelPage(driver, self.url)
-            webtabel_page.open()
-            webtabel_page.click_add_button()
-            new_person = webtabel_page.fill_registration_form()
-            full_list = webtabel_page.get_tabel_data()
-            webtabel_page.check_new_person_in_table(new_person, full_list)
+            webtable_page = WebTablePage(driver, self.url)
+            webtable_page.open()
+            webtable_page.click_add_button()
+            new_person = webtable_page.fill_registration_form()
+            full_list = webtable_page.get_table_data()
+            webtable_page.check_new_person_in_table(new_person, full_list)
+
+        def test_search_function(self,driver):
+            webtable_page = WebTablePage(driver, self.url)
+            webtable_page.open()
+            webtable_page.click_add_button()
+            new_person = webtable_page.fill_registration_form()[random.randint(0, 6)]
+            """webtable_page.search_some_person(new_person[random.randint(0, 6)])
+            full_list = webtable_page.get_table_data()
+            webtable_page.check_new_person_in_table(new_person, full_list)"""
+            webtable_page.search_some_person(new_person)
+            table_result = webtable_page.check_search_person()
+            assert new_person in table_result, f"Ключевого слова {new_person} не найдено в списках кнопкой Search"
+            time.sleep(5)
+
+
+
 
 
 
