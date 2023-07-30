@@ -122,12 +122,24 @@ class WebTabelPage(BasePage):
         age = person_info.age
         salary = person_info.salary
         department = person_info.department
+        new_added_person = [first_name, last_name, str(age), email, str(salary), department]
         self.element_is_present(self.locators.FIRST_NAME_REG_FORM).send_keys(first_name)
         self.element_is_present(self.locators.LAST_NAME_RAG_FORM).send_keys(last_name)
         self.element_is_present(self.locators.EMAIL_REG_FORM).send_keys(email)
         self.element_is_present(self.locators.AGE_REG_FORM).send_keys(age)
         self.element_is_present(self.locators.SALARY_REG_FORM).send_keys(salary)
         self.element_is_present(self.locators.DEPARTMEMT_REG_FORM).send_keys(department)
-        time.sleep(5)
         self.element_is_present(self.locators.SUBMIT_BUTTON_REG_FORM).click()
+        return new_added_person
+
+    def get_tabel_data(self):
+        people_data = self.element_are_present(self.locators.PEOPLE_DATA)
+        data = []
+        for index in people_data:
+            data.append(index.text.splitlines())
+        return data
+
+    def check_new_person_in_table(self, new_person, full_list):
+        assert new_person in full_list, "ДАННЫЕ НОВОГО СОТРУДНИКА НЕ ВНЕСЕНЫ В ТАБЛИЦУ ИЛИ ВНЕСЕНЫ НЕ КОРРЕКТНО!!!"
+
 

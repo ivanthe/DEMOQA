@@ -46,6 +46,8 @@ class WebTabelLocators:
 
     SEARCH_BUTTON = (By.CSS_SELECTOR, 'div[class=input-group-append]')
 
+    PEOPLE_DATA = (By.CSS_SELECTOR, "div[class='rt-tr-group']")
+
 
 
 

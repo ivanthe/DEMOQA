@@ -52,7 +52,9 @@ class TestElements:
             webtabel_page = WebTabelPage(driver, self.url)
             webtabel_page.open()
             webtabel_page.click_add_button()
-            webtabel_page.fill_registration_form()
+            new_person = webtabel_page.fill_registration_form()
+            full_list = webtabel_page.get_tabel_data()
+            webtabel_page.check_new_person_in_table(new_person, full_list)
 
 
 
