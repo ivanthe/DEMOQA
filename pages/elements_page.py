@@ -155,3 +155,45 @@ class WebTablePage(BasePage):
         row = delete_button.find_element(By.XPATH, self.locators.ROW_PARENT)
         return row.text.splitlines()
 
+    def update_person_info(self):
+        person_info = next(webtable_generator_person())
+        index = random.randint(0, 5)
+        self.element_is_visible(self.locators.UPDATE_BUTTON).click()
+        time.sleep(2)
+        if index == 0:
+            self.element_is_present(self.locators.FIRST_NAME_REG_FORM).clear()
+            self.element_is_present(self.locators.FIRST_NAME_REG_FORM).send_keys(person_info.first_name)
+            data = [index, person_info.first_name]
+        if index == 1:
+            self.element_is_present(self.locators.LAST_NAME_RAG_FORM).clear()
+            self.element_is_present(self.locators.LAST_NAME_RAG_FORM).send_keys(person_info.last_name)
+            data = [index, person_info.last_name]
+        if index == 2:
+            self.element_is_present(self.locators.AGE_REG_FORM).clear()
+            self.element_is_present(self.locators.AGE_REG_FORM).send_keys(person_info.age)
+            data = [index, str(person_info.age)]
+        if index == 3:
+            self.element_is_present(self.locators.EMAIL_REG_FORM).clear()
+            self.element_is_present(self.locators.EMAIL_REG_FORM).send_keys(person_info.email)
+            data = [index, person_info.email]
+        if index == 4:
+            self.element_is_present(self.locators.SALARY_REG_FORM).clear()
+            self.element_is_present(self.locators.SALARY_REG_FORM).send_keys(person_info.salary)
+            data = [index, str(person_info.salary)]
+        if index == 5:
+            self.element_is_present(self.locators.DEPARTMEMT_REG_FORM).clear()
+            self.element_is_present(self.locators.DEPARTMEMT_REG_FORM).send_keys(person_info.department)
+            data = [index, person_info.department]
+        self.element_is_visible(self.locators.SUBMIT_BUTTON_REG_FORM).click()
+        return data
+
+    def get_updated_person(self, new_person, data):
+        updated_person = []
+        for box in new_person:
+            updated_person.append(box)
+        updated_person[data[0]] = data[1]
+        return updated_person
+
+
+
+

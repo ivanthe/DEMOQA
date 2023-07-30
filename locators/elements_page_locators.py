@@ -46,10 +46,11 @@ class WebTableLocators:
 
     SEARCH_BUTTON = (By.CSS_SELECTOR, 'div[class=input-group-append]')
     SEARCH_INPUT = (By.CSS_SELECTOR, 'input[id=searchBox]')
+    UPDATE_BUTTON = (By.CSS_SELECTOR, 'span[title=Edit]')
     DELETE_BUTTON = (By.CSS_SELECTOR, 'span[title=Delete]')
     ROW_PARENT = ".//ancestor::div[@class='rt-tr-group']"
 
-    PEOPLE_DATA = "div[class='rt-tr-group']"
+    PEOPLE_DATA = (By.CSS_SELECTOR, "div[class='rt-tr-group']")
 
 
 

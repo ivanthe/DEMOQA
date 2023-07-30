@@ -57,7 +57,7 @@ class TestElements:
             full_list = webtable_page.get_table_data()
             webtable_page.check_new_person_in_table(new_person, full_list)
 
-        def test_search_function(self,driver):
+        def test_webtable_search_function(self,driver):
             webtable_page = WebTablePage(driver, self.url)
             webtable_page.open()
             webtable_page.click_add_button()
@@ -69,6 +69,22 @@ class TestElements:
             table_result = webtable_page.check_search_person()
             assert new_person in table_result, f"Ключевого слова {new_person} не найдено в списках кнопкой Search"
             time.sleep(5)
+
+        def test_webtable_person_info(self, driver):
+            webtable_page = WebTablePage(driver, self.url)
+            webtable_page.open()
+            webtable_page.click_add_button()
+            new_person = webtable_page.fill_registration_form()  #Создаем новые данные
+            webtable_page.search_some_person(new_person[1])   # Ищем новосозданного человека в списке
+            new_value = webtable_page.update_person_info()  #Изменяем данные новосозданного человека и возвращаем
+                                                            # номер пункта, который измеряли и новое значение
+            updated_person = webtable_page.get_updated_person(new_person, new_value) #На основании данных новосозданного
+                                                            # человека, создаем новый списко после обновления
+            webtable_page.search_some_person('')        #Удаляем фильтр поиска
+            full_list = webtable_page.get_table_data()      #Получаем полный список
+            assert new_person not in full_list, "Данные об измененном сотруднике присуствуют в списае после изменения"
+            assert updated_person in full_list, "Измененные данные отсутствуют в списке"
+
 
 
 
