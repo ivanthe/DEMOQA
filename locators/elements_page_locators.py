@@ -55,6 +55,14 @@ class WebTableLocators:
 
     X_BUTTON = (By.CSS_SELECTOR, 'span[class=sr-only]')
 
+class ButtonsLocators:
+    BUTTON_DOUBLE_CLICK = (By.CSS_SELECTOR, 'button[id=doubleClickBtn]')
+    BUTTON_RIGHT_CLICK = (By.CSS_SELECTOR, 'button[id=rightClickBtn]')
+    BUTTON_LEFT_CLICK = (By.XPATH, '//div[@class="mt-4"][2]/button')
+
+    RESULT_DOUBLE_CLICK = (By.CSS_SELECTOR, 'p[id=doubleClickMessage]')
+    RESULT_RIGHT_CLICK = (By.CSS_SELECTOR, 'p[id=rightClickMessage]')
+    RESULT_LEFT_CLICK = (By.CSS_SELECTOR, 'p[id=dynamicClickMessage]')
 
 
 

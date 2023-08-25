@@ -1,7 +1,7 @@
 import random
 import time
 
-from pages.elements_page import TextBoxPage, CheckBoxPage, RadioButtonPage, WebTablePage
+from pages.elements_page import TextBoxPage, CheckBoxPage, RadioButtonPage, WebTablePage, ButtonsPage
 
 url = "https://demoqa.com/text-box"
 class TestElements:
@@ -82,9 +82,13 @@ class TestElements:
                                                  "ВНЕСЕНЫ НЕ КОРРЕКТНО!!!"
             assert old_person_data not in full_list, "Старые данные сотрудника присутствуют в базе"
 
+    class TestButtons:
+        url = 'https://demoqa.com/buttons'
 
-
-
-
-
+        def test_left_button_click(self, driver):
+            buttons_page = ButtonsPage(driver, self.url)
+            buttons_page.open()
+            buttons_page.click_left_button()
+            actual_result = buttons_page.get_result_of_button_click()
+            assert actual_result == 'You have done a dynamic click', "Актуальное сообщение не соответствует ожидаемому"
 

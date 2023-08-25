@@ -6,7 +6,7 @@ from selenium.webdriver.common.by import By
 
 from generator.generator import generator_person, webtable_generator_person
 from locators.elements_page_locators import TextBoxElementsLocator, CheckBoxLocators, RadioButtonLocators, \
-    WebTableLocators
+    WebTableLocators, ButtonsLocators
 from pages.base_page import BasePage
 from selenium.common.exceptions import TimeoutException
 
@@ -218,8 +218,11 @@ class WebTablePage(BasePage):
         new_person_data = self.get_table_data()[random_record]
         return old_person_data, new_person_data
 
+class ButtonsPage(BasePage):
+    locators = ButtonsLocators
 
+    def click_left_button(self):
+        self.element_is_present(self.locators.BUTTON_LEFT_CLICK).click()
 
-
-
-
+    def get_result_of_button_click(self):
+        return self.element_is_present(self.locators.RESULT_LEFT_CLICK).text
