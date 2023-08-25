@@ -1,5 +1,6 @@
 import random
 import time
+import pyautogui as pag
 
 from selenium.webdriver.common.by import By
 
@@ -158,7 +159,6 @@ class WebTablePage(BasePage):
     def update_person_info(self):
         person_info = next(webtable_generator_person())
         index = random.randint(0, 5)
-        self.element_is_visible(self.locators.UPDATE_BUTTON).click()
         time.sleep(2)
         if index == 0:
             self.element_is_present(self.locators.FIRST_NAME_REG_FORM).clear()
@@ -193,6 +193,32 @@ class WebTablePage(BasePage):
             updated_person.append(box)
         updated_person[data[0]] = data[1]
         return updated_person
+
+    def clear_input_search(self):
+        self.element_is_present(self.locators.SEARCH_INPUT).click()
+        self.element_is_present(self.locators.SEARCH_INPUT).clear()
+        time.sleep(20)
+        """self.element_is_present(self.locators.SEARCH_INPUT).send_keys(pag.hotkey('ctrl', 'a'))
+        time.sleep(2)
+        self.element_is_present(self.locators.SEARCH_INPUT).send_keys(pag.press('delete'))
+        time.sleep(1)"""
+        #self.element_is_present(self.locators.SEARCH_INPUT).send_keys('Insurance')
+        #self.element_is_present(self.locators.SEARCH_INPUT).clear()
+
+        time.sleep(5)
+
+    def update_random_record(self):
+
+        records_list = self.element_are_present(self.locators.UPDATE_BUTTON)
+        random_record = random.randint(1, len(records_list))-1
+        old_person_data = self.get_table_data()[random_record]
+        res = records_list[random_record].find_element(By.XPATH, self.locators.ROW_PARENT)
+        res.find_element(By.CSS_SELECTOR, 'span[class=mr-2]').click()
+        self.update_person_info()
+        new_person_data = self.get_table_data()[random_record]
+        return old_person_data, new_person_data
+
+
 
 
 

@@ -55,7 +55,8 @@ class TestElements:
             webtable_page.click_add_button()
             new_person = webtable_page.fill_registration_form()
             full_list = webtable_page.get_table_data()
-            webtable_page.check_new_person_in_table(new_person, full_list)
+            assert new_person in full_list, "ДАННЫЕ НОВОГО СОТРУДНИКА НЕ ВНЕСЕНЫ В ТАБЛИЦУ ИЛИ ВНЕСЕНЫ НЕ КОРРЕКТНО!!!"
+
 
         def test_webtable_search_function(self,driver):
             webtable_page = WebTablePage(driver, self.url)
@@ -73,17 +74,13 @@ class TestElements:
         def test_webtable_person_info(self, driver):
             webtable_page = WebTablePage(driver, self.url)
             webtable_page.open()
-            webtable_page.click_add_button()
-            new_person = webtable_page.fill_registration_form()  #Создаем новые данные
-            webtable_page.search_some_person(new_person[1])   # Ищем новосозданного человека в списке
-            new_value = webtable_page.update_person_info()  #Изменяем данные новосозданного человека и возвращаем
-                                                            # номер пункта, который измеряли и новое значение
-            updated_person = webtable_page.get_updated_person(new_person, new_value) #На основании данных новосозданного
-                                                            # человека, создаем новый списко после обновления
-            webtable_page.search_some_person('')        #Удаляем фильтр поиска
-            full_list = webtable_page.get_table_data()      #Получаем полный список
-            assert new_person not in full_list, "Данные об измененном сотруднике присуствуют в списае после изменения"
-            assert updated_person in full_list, "Измененные данные отсутствуют в списке"
+            old_person_data, new_person_data = webtable_page.update_random_record()
+            print('СТАРЫЕ -  ', old_person_data)
+            print('НОВЫЕ  -  ', new_person_data)
+            full_list = webtable_page.get_table_data()
+            assert new_person_data in full_list, "ДАННЫЕ НОВОГО СОТРУДНИКА НЕ ВНЕСЕНЫ В ТАБЛИЦУ ИЛИ " \
+                                                 "ВНЕСЕНЫ НЕ КОРРЕКТНО!!!"
+            assert old_person_data not in full_list, "Старые данные сотрудника присутствуют в базе"
 
 
 
