@@ -85,10 +85,30 @@ class TestElements:
     class TestButtons:
         url = 'https://demoqa.com/buttons'
 
+        def test_left_button_double_click(self, driver):
+            buttons_page = ButtonsPage(driver, self.url)
+            buttons_page.open()
+            buttons_page.click_left_button_double_click()
+            actual_result = buttons_page.get_result_of_button_double_click()
+            assert actual_result == 'You have done a double click', "Актуальное сообщение не соответствует ожидаемому " \
+                                                                    "при нажатии Double Click Me"
+
+        def test_right_button_click(self, driver):
+            buttons_page = ButtonsPage(driver, self.url)
+            buttons_page.open()
+            buttons_page.click_right_button()
+            time.sleep(5)
+            actual_result = buttons_page.get_result_of_right_button_click()
+            assert actual_result == 'You have done a right click', "Актуальное сообщение не соответствует ожидаемому " \
+                                                                   "при нажании Right Click Me"
+
         def test_left_button_click(self, driver):
             buttons_page = ButtonsPage(driver, self.url)
             buttons_page.open()
             buttons_page.click_left_button()
             actual_result = buttons_page.get_result_of_button_click()
-            assert actual_result == 'You have done a dynamic click', "Актуальное сообщение не соответствует ожидаемому"
+            assert actual_result == 'You have done a dynamic click', "Актуальное сообщение не соответствует ожидаемому " \
+                                                                     "при нажании Click Me"
+
+
 

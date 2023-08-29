@@ -3,6 +3,7 @@ import time
 import pyautogui as pag
 
 from selenium.webdriver.common.by import By
+from selenium.webdriver.common.action_chains import ActionChains
 
 from generator.generator import generator_person, webtable_generator_person
 from locators.elements_page_locators import TextBoxElementsLocator, CheckBoxLocators, RadioButtonLocators, \
@@ -224,5 +225,22 @@ class ButtonsPage(BasePage):
     def click_left_button(self):
         self.element_is_present(self.locators.BUTTON_LEFT_CLICK).click()
 
+    def click_left_button_double_click(self):
+        action = ActionChains(self.driver)
+        action.double_click(on_element=self.element_is_present(self.locators.BUTTON_DOUBLE_CLICK))
+        action.perform()
+
+    def click_right_button(self):
+        action = ActionChains(self.driver)
+        action.context_click(on_element=self.element_is_present(self.locators.BUTTON_RIGHT_CLICK)).perform()
+
+    def get_result_of_button_double_click(self):
+        return self.element_is_present(self.locators.RESULT_DOUBLE_CLICK).text
+
+    def get_result_of_right_button_click(self):
+        return self.element_is_present(self.locators.RESULT_RIGHT_CLICK).text
+
     def get_result_of_button_click(self):
         return self.element_is_present(self.locators.RESULT_LEFT_CLICK).text
+
+
