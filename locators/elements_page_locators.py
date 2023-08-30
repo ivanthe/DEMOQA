@@ -65,6 +65,9 @@ class ButtonsLocators:
     RESULT_LEFT_CLICK = (By.CSS_SELECTOR, 'p[id=dynamicClickMessage]')
 
 
+class LinkPageLocators:
+    HOME_SIMPLE_LINK = (By.CSS_SELECTOR, 'a[id=simpleLink]')
+    BAD_REQUEST = (By.CSS_SELECTOR, 'a[id=bad-request]')
 
 
 

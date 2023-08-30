@@ -1,13 +1,14 @@
 import random
 import time
 import pyautogui as pag
+import requests
 
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.action_chains import ActionChains
 
 from generator.generator import generator_person, webtable_generator_person
 from locators.elements_page_locators import TextBoxElementsLocator, CheckBoxLocators, RadioButtonLocators, \
-    WebTableLocators, ButtonsLocators
+    WebTableLocators, ButtonsLocators, LinkPageLocators
 from pages.base_page import BasePage
 from selenium.common.exceptions import TimeoutException
 
@@ -242,5 +243,21 @@ class ButtonsPage(BasePage):
 
     def get_result_of_button_click(self):
         return self.element_is_present(self.locators.RESULT_LEFT_CLICK).text
+
+class LinksPage(BasePage):
+    locators = LinkPageLocators
+
+    def check_opened_page(self):
+        simple_link = self.element_is_visible(self.locators.HOME_SIMPLE_LINK)
+        link_href = simple_link.get_attribute('href')
+        request = requests.get(link_href)
+        if request.status_code == 200:
+            simple_link.click()
+            self.driver.switch_to.window(self.driver.window_handles[1])
+            url = self.driver.current_url
+            return link_href, url
+        else:
+            return request.status_code
+
 
 

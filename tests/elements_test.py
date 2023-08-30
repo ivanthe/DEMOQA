@@ -1,7 +1,7 @@
 import random
 import time
 
-from pages.elements_page import TextBoxPage, CheckBoxPage, RadioButtonPage, WebTablePage, ButtonsPage
+from pages.elements_page import TextBoxPage, CheckBoxPage, RadioButtonPage, WebTablePage, ButtonsPage, LinksPage
 
 url = "https://demoqa.com/text-box"
 class TestElements:
@@ -109,6 +109,17 @@ class TestElements:
             actual_result = buttons_page.get_result_of_button_click()
             assert actual_result == 'You have done a dynamic click', "Актуальное сообщение не соответствует ожидаемому " \
                                                                      "при нажании Click Me"
+
+    class TestLinks:
+        url = 'https://demoqa.com/links'
+
+        def test_working_link(self, driver):
+            links_page = LinksPage(driver, self.url)
+            links_page.open()
+            href_link, current_ulr = links_page.check_opened_page()
+            assert href_link == current_ulr, f"Ожидался переход по ссылке {href_link}  , действильено перешли " \
+                                             f"на {current_ulr}"
+
 
 
 
