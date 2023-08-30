@@ -120,6 +120,12 @@ class TestElements:
             assert href_link == current_ulr, f"Ожидался переход по ссылке {href_link}  , действильено перешли " \
                                              f"на {current_ulr}"
 
+        def test_bad_request_link(self, driver):
+            links_page = LinksPage(driver, self.url)
+            links_page.open()
+            response_code = links_page.check_bad_request_link('https://demoqa.com/bad-request')
+            assert response_code == 400
+
 
 
 

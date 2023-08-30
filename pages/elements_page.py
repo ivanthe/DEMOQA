@@ -259,5 +259,14 @@ class LinksPage(BasePage):
         else:
             return request.status_code
 
+    def check_bad_request_link(self, url):
+        """bad_request = self.element_is_visible(self.locators.BAD_REQUEST)
+        link_href = bad_request.get_attribute('href')"""
+        request = requests.get(url)
+        if request.status_code == 200:
+            self.element_is_visible(self.locators.BAD_REQUEST).click()
+        else:
+            return request.status_code
+
 
 
