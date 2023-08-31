@@ -69,6 +69,11 @@ class LinkPageLocators:
     HOME_SIMPLE_LINK = (By.CSS_SELECTOR, 'a[id=simpleLink]')
     BAD_REQUEST = (By.CSS_SELECTOR, 'a[id=bad-request]')
 
+class ImagePageLocators:
+    LIST_OF_IMAGES = (By.XPATH, '//p[contains(text(), "Valid image")]/following-sibling::img')
+    IMAGE_TITLE = '//preceding-sibling::p'
+    VALID_iMAGE = (By.XPATH, '//p[contains(text(), "Valid image")]/following-sibling::img[2]')
+
 
 
 

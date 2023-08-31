@@ -2,13 +2,16 @@ import random
 import time
 import pyautogui as pag
 import requests
+import os
 
+from PIL import Image
+from PIL import UnidentifiedImageError
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.action_chains import ActionChains
 
 from generator.generator import generator_person, webtable_generator_person
 from locators.elements_page_locators import TextBoxElementsLocator, CheckBoxLocators, RadioButtonLocators, \
-    WebTableLocators, ButtonsLocators, LinkPageLocators
+    WebTableLocators, ButtonsLocators, LinkPageLocators, ImagePageLocators
 from pages.base_page import BasePage
 from selenium.common.exceptions import TimeoutException
 
@@ -267,6 +270,48 @@ class LinksPage(BasePage):
             self.element_is_visible(self.locators.BAD_REQUEST).click()
         else:
             return request.status_code
+
+class ImagesPage(BasePage):
+    locators = ImagePageLocators
+
+    def check_images(self):
+
+        images_list = self.element_are_present(self.locators.LIST_OF_IMAGES)
+        i = 1
+        data = []
+
+        for img in images_list:
+            image_link = img.get_attribute('src')
+            title_locator = ".//ancestor::div/p["+str(i)+"]"
+            image_title = img.find_element(By.XPATH, title_locator).text
+            result = self.verify_if_image_is_broken(image_link)
+
+            if result == False:
+                data.append(image_title)
+            i+=1
+        return data
+
+    def verify_if_image_is_broken(self, url):
+        request = requests.get(url)
+
+        # Загружаю и сохраняю картинку
+        with open('sample_image.jpg', 'wb') as file_object:
+            file_object.write(request.content)
+
+        # Проверяю является ли картинкой скачанный файл
+        try:
+            img = Image.open('sample_image.jpg')
+            img.verify()
+            os.remove('sample_image.jpg')
+        except UnidentifiedImageError:
+            os.remove('sample_image.jpg')
+            return False
+        return True
+
+
+
+
+
 
 
 

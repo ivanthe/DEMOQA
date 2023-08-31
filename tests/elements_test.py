@@ -1,7 +1,8 @@
 import random
 import time
 
-from pages.elements_page import TextBoxPage, CheckBoxPage, RadioButtonPage, WebTablePage, ButtonsPage, LinksPage
+from pages.elements_page import TextBoxPage, CheckBoxPage, RadioButtonPage, WebTablePage, ButtonsPage, LinksPage, \
+    ImagesPage
 
 url = "https://demoqa.com/text-box"
 class TestElements:
@@ -127,5 +128,14 @@ class TestElements:
             assert response_code == 400
 
 
+    class TestImages:
+        url = 'https://demoqa.com/broken'
+
+        def test_images(self, driver):
+            images_page = ImagesPage(driver, self.url)
+            images_page.open()
+            results = images_page.check_images()
+            print(results)
+            assert len(results) == 0, f'Следующие картинки сломаны: {results}'
 
 
