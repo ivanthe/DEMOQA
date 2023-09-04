@@ -308,10 +308,19 @@ class ImagesPage(BasePage):
             return False
         return True
 
+    def check_links(self):
+        links_list = self.element_are_present(self.locators.LIST_OF_LINKS)
+        data = []
 
-
-
-
-
-
+        for link in links_list:
+            current_link = link.get_attribute('href')
+            link_title = link.text
+            request = requests.get(current_link)
+            status_code = request.status_code
+            if status_code != 200:
+                link.click()
+                new_page = self.driver.current_url
+                data.append([link_title, status_code, new_page])
+                self.driver.back()
+        return data
 

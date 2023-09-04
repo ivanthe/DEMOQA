@@ -135,7 +135,14 @@ class TestElements:
             images_page = ImagesPage(driver, self.url)
             images_page.open()
             results = images_page.check_images()
-            print(results)
             assert len(results) == 0, f'Следующие картинки сломаны: {results}'
+
+        def test_links_are_working(self, driver):
+            images_page = ImagesPage(driver, self.url)
+            images_page.open()
+            results = images_page.check_links()
+            assert len(results) == 0, f'следующие ссылки сломаны, имеют статус код и ведут на страницу: {results}'
+
+
 
 

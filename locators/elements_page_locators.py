@@ -71,8 +71,8 @@ class LinkPageLocators:
 
 class ImagePageLocators:
     LIST_OF_IMAGES = (By.XPATH, '//p[contains(text(), "Valid image")]/following-sibling::img')
-    IMAGE_TITLE = '//preceding-sibling::p'
-    VALID_iMAGE = (By.XPATH, '//p[contains(text(), "Valid image")]/following-sibling::img[2]')
+
+    LIST_OF_LINKS = (By.XPATH, '//p[contains(text(), "Valid image")]/following-sibling::a')
 
 
 
